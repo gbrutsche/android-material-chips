@@ -3,15 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/paper"
-        >
+        android:background="@color/paper">
 
         <!--Title-->
         <TextView
@@ -23,22 +21,18 @@
             android:layout_marginRight="24dp"
             android:layout_marginBottom="20dp"
             android:textSize="20dp"
-            android:text="@string/chips_enter_email_address"
-            />
+            android:text="Enter a Tag for this Note"/>
 
         <!--New Name-->
-        <com.rengwuxian.materialedittext.MaterialEditText
+        <MultiAutoCompleteTextView
             android:id="@+id/et_ch_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:singleLine="true"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="@color/blue"
-            />
+            android:hint="Tag"
+            android:inputType="textAutoComplete"
+            android:singleLine="true"/>
 
         <!--Action Area-->
         <RelativeLayout
@@ -47,8 +41,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            >
+            android:layout_marginBottom="8dp">
 
             <!--Confirm-->
             <Button
@@ -63,8 +56,7 @@
                 android:paddingRight="8dp"
                 android:text="@string/confirm"
                 android:textColor="@color/blue"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp"/>
 
             <!--Cancel-->
             <Button
@@ -80,8 +72,7 @@
                 android:paddingRight="8dp"
                 android:text="@string/cancel"
                 android:textColor="@color/blue"
-                android:textSize="14sp"
-                />
+                android:textSize="14sp"/>
 
         </RelativeLayout>
 

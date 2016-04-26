@@ -16,9 +16,10 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/ic_person_24dp"
+            android:background="@drawable/ic_person_black_24dp"
             android:alpha="0.3"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:visibility="gone"/>
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/ri_ch_avatar"
@@ -33,8 +34,8 @@
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/ic_close_24dp"
-            android:alpha="0"
+            android:background="@drawable/ic_close_white_24dp"
+            android:alpha="100"
             android:gravity="center"/>
     </RelativeLayout>
 
@@ -47,8 +48,7 @@
         android:layout_toRightOf="@id/rl_ch_avatar"
         android:singleLine="true"
         android:textSize="16sp"
-        android:text="asdasd"
-        />
+        android:text="asdasd"/>
 
     <ImageView
         android:id="@+id/iv_ch_error"
@@ -57,7 +57,7 @@
         android:layout_toRightOf="@id/tv_ch_name"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dp"
-        android:src="@drawable/ic_error_red_24dp"
+        android:src="@drawable/ic_error_red_600_24dp"
         android:visibility="gone"/>
 
 

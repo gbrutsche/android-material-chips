@@ -19,7 +19,6 @@ package com.doodle.android.chips.util;
 import android.text.TextUtils;
 
 public class Common {
-
     public static boolean isValidEmail(CharSequence target) {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }

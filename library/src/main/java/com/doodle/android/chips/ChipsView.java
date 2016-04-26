@@ -16,19 +16,16 @@
 
 package com.doodle.android.chips;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
@@ -62,22 +59,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class ChipsView extends ScrollView implements ChipsEditText.InputConnectionWrapperInterface, ChipsEmailDialogFragment.EmailListener {
+public class ChipsView extends ScrollView
+        implements ChipsEditText.InputConnectionWrapperInterface, ChipsEmailDialogFragment.EmailListener {
 
-    //<editor-fold desc="Static Fields">
     private static final String TAG = "ChipsView";
     private static final int CHIP_HEIGHT = 32; // dp
     private static final int SPACING_TOP = 4; // dp
     private static final int SPACING_BOTTOM = 4; // dp
     public static final int DEFAULT_VERTICAL_SPACING = 1; // dp
     private static final int DEFAULT_MAX_HEIGHT = -1;
-    //</editor-fold>
 
-    //<editor-fold desc="Resources">
     private int mChipsBgRes = R.drawable.chip_background;
-    //</editor-fold>
 
-    //<editor-fold desc="Attributes">
     private int mMaxHeight; // px
     private int mVerticalSpacing;
 
@@ -98,9 +91,7 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
     private String mChipsDialogConfirm;
     private String mChipsDialogCancel;
     private String mChipsDialogErrorMsg;
-    //</editor-fold>
 
-    //<editor-fold desc="Private Fields">
     private float mDensity;
     private RelativeLayout mChipsContainer;
     private ChipsListener mChipsListener;
@@ -110,9 +101,7 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
     private List<Chip> mChipList = new ArrayList<>();
     private Object mCurrentEditTextSpan;
     private ChipValidator mChipsValidator;
-    //</editor-fold>
 
-    //<editor-fold desc="Constructors">
     public ChipsView(Context context) {
         super(context);
         init();
@@ -130,14 +119,6 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
         init();
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ChipsView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        initAttr(context, attrs);
-        init();
-    }
-    //</editor-fold>
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if(mMaxHeight != DEFAULT_MAX_HEIGHT) {
@@ -151,7 +132,6 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
         return true;
     }
 
-    //<editor-fold desc="Initialization">
     private void initAttr(Context context, AttributeSet attrs) {
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
@@ -161,19 +141,19 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
             mMaxHeight = a.getDimensionPixelSize(R.styleable.ChipsView_cv_max_height, DEFAULT_MAX_HEIGHT);
             mVerticalSpacing = a.getDimensionPixelSize(R.styleable.ChipsView_cv_vertical_spacing, (int) (DEFAULT_VERTICAL_SPACING * mDensity));
             mChipsColor = a.getColor(R.styleable.ChipsView_cv_color,
-                    ContextCompat.getColor(context, R.color.base30));
+                    getContext().getResources().getColor(R.color.base30));
             mChipsColorClicked = a.getColor(R.styleable.ChipsView_cv_color_clicked,
-                    ContextCompat.getColor(context, R.color.colorPrimaryDark));
+                    getContext().getResources().getColor(R.color.colorPrimaryDark));
             mChipsColorErrorClicked = a.getColor(R.styleable.ChipsView_cv_color_error_clicked,
-                    ContextCompat.getColor(context, R.color.color_error));
+                    getContext().getResources().getColor(R.color.color_error));
 
             mChipsBgColor = a.getColor(R.styleable.ChipsView_cv_bg_color,
-                    ContextCompat.getColor(context, R.color.base10));
+                    getContext().getResources().getColor(R.color.base10));
             mChipsBgColorClicked = a.getColor(R.styleable.ChipsView_cv_bg_color_clicked,
-                    ContextCompat.getColor(context, R.color.blue));
+                    getContext().getResources().getColor(R.color.blue));
 
             mChipsBgColorErrorClicked = a.getColor(R.styleable.ChipsView_cv_bg_color_clicked,
-                    ContextCompat.getColor(context, R.color.color_error));
+                    getContext().getResources().getColor(R.color.color_error));
 
             mChipsTextColor = a.getColor(R.styleable.ChipsView_cv_text_color,
                     Color.BLACK);
@@ -183,9 +163,9 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
                     Color.WHITE);
 
             mChipsPlaceholderResId = a.getResourceId(R.styleable.ChipsView_cv_icon_placeholder,
-                    R.drawable.ic_person_24dp);
+                    R.drawable.ic_person_black_24dp);
             mChipsDeleteResId = a.getResourceId(R.styleable.ChipsView_cv_icon_delete,
-                    R.drawable.ic_close_24dp);
+                    R.drawable.ic_close_white_24dp);
 
             mChipsDialogTitle = a.getString(R.styleable.ChipsView_cv_dialog_title);
             if (TextUtils.isEmpty(mChipsDialogTitle)) {
@@ -238,6 +218,8 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
         mEditText.setBackgroundColor(Color.argb(0, 0, 0, 0));
         mEditText.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_ACTION_UNSPECIFIED);
         mEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        mEditText.setFocusable(false);
+        mEditText.setFocusableInTouchMode(false);
 
         mChipsContainer.addView(mEditText);
 
@@ -254,7 +236,6 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
         mChipsContainer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mEditText.requestFocus();
                 unselectAllChips();
             }
         });
@@ -270,9 +251,23 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
             }
         });
     }
-    //</editor-fold>
 
-    //<editor-fold desc="Public Methods">
+    public void addChip(String displayName) {
+        Chip chip = new Chip(displayName, null, new Contact(null, null, displayName, "", null), false);
+        mChipList.add(chip);
+        if (mChipsListener != null) {
+            mChipsListener.onChipAdded(chip);
+        }
+
+        onChipsChanged(true);
+        post(new Runnable() {
+            @Override
+            public void run() {
+                fullScroll(View.FOCUS_DOWN);
+            }
+        });
+    }
+
     public void addChip(String displayName, String avatarUrl, Contact contact) {
         addChip(displayName, Uri.parse(avatarUrl), contact);
     }
@@ -336,9 +331,7 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
     public EditText getEditText() {
         return mEditText;
     }
-    //</editor-fold>
 
-    //<editor-fold desc="Private Methods">
     /**
      * rebuild all chips and place them right
      */
@@ -457,17 +450,15 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
     private void onChipInteraction(Chip chip, boolean nameClicked) {
         unselectChipsExcept(chip);
         if (chip.isSelected()) {
-            mChipList.remove(chip);
-            if (mChipsListener != null) {
-                mChipsListener.onChipDeleted(chip);
+            if (nameClicked) {
+                unselectAllChips();
+            } else {
+                mChipList.remove(chip);
+                if (mChipsListener != null) {
+                    mChipsListener.onChipDeleted(chip);
+                }
             }
             onChipsChanged(true);
-            if (nameClicked) {
-                mEditText.setText(chip.getContact().getEmailAddress());
-                addLeadingMarginSpan();
-                mEditText.requestFocus();
-                mEditText.setSelection(mEditText.length());
-            }
         } else {
             chip.setSelected(true);
             onChipsChanged(false);
@@ -486,23 +477,17 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
     private void unselectAllChips() {
         unselectChipsExcept(null);
     }
-    //</editor-fold>
 
-    //<editor-fold desc="InputConnectionWrapperInterface Implementation">
     @Override
     public InputConnection getInputConnection(InputConnection target) {
         return new KeyInterceptingInputConnection(target);
     }
-    //</editor-fold>
 
-    //<editor-fold desc="EmailListener Implementation">
     @Override
     public void onDialogEmailEntered(String email, String initialText) {
         onEmailRecognized(new Contact(initialText, "", initialText, email, null));
     }
-    //</editor-fold>
 
-    //<editor-fold desc="Inner Classes / Interfaces">
     private class EditTextListener implements TextWatcher {
 
         private boolean mIsPasteTextChange = false;
@@ -620,7 +605,7 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
             this.mIsIndelible = isIndelible;
 
             if (mLabel == null) {
-                mLabel = contact.getEmailAddress();
+                mLabel = contact.getDisplayName();
             }
 
             if (mLabel.length() > MAX_LABEL_LENGTH) {
@@ -771,5 +756,4 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
     public static abstract class ChipValidator {
         public abstract boolean isValid(Contact contact);
     }
-    //</editor-fold>
 }

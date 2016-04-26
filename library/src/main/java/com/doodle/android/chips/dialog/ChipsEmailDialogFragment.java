@@ -16,19 +16,19 @@
 
 package com.doodle.android.chips.dialog;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
 import com.doodle.android.chips.R;
 import com.doodle.android.chips.util.Common;
-import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class ChipsEmailDialogFragment extends DialogFragment {
 
@@ -42,7 +42,7 @@ public class ChipsEmailDialogFragment extends DialogFragment {
 
     private String mErrorMsg;
 
-    private MaterialEditText mEditText;
+    private MultiAutoCompleteTextView mEditText;
     private Button mConfirm;
     private Button mCancel;
 
@@ -53,7 +53,7 @@ public class ChipsEmailDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view = View.inflate(getContext(), R.layout.dialog_chips_email, null);
+        View view = View.inflate(getActivity(), R.layout.dialog_chips_email, null);
 
         Dialog dialog = new AlertDialog.Builder(getActivity())
                 .setCancelable(true)
@@ -63,7 +63,7 @@ public class ChipsEmailDialogFragment extends DialogFragment {
         dialog.setCanceledOnTouchOutside(true);
         setCancelable(true);
 
-        mEditText = (MaterialEditText) view.findViewById(R.id.et_ch_email);
+        mEditText = (MultiAutoCompleteTextView) view.findViewById(R.id.et_ch_email);
         mConfirm = (Button) view.findViewById(R.id.bu_ch_confirm);
         mCancel = (Button) view.findViewById(R.id.bu_ch_cancel);
 
@@ -81,7 +81,6 @@ public class ChipsEmailDialogFragment extends DialogFragment {
                 titleView.setText(bundle.getString(EXTRA_STRING_TITLE));
             if (bundle.containsKey(EXTRA_STRING_PLACEHOLDER)) {
                 mEditText.setHint(bundle.getString(EXTRA_STRING_PLACEHOLDER));
-                mEditText.setFloatingLabelText(bundle.getString(EXTRA_STRING_PLACEHOLDER));
             }
             if (bundle.containsKey(EXTRA_STRING_CONFIRM))
                 mConfirm.setText(bundle.getString(EXTRA_STRING_CONFIRM));

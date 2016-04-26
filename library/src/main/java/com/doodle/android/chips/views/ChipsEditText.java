@@ -17,11 +17,11 @@
 package com.doodle.android.chips.views;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatEditText;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import android.widget.EditText;
 
-public class ChipsEditText extends AppCompatEditText {
+public class ChipsEditText extends EditText {
 
     private InputConnectionWrapperInterface mInputConnectionWrapperInterface;
 
