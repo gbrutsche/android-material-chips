@@ -102,6 +102,8 @@ public class ChipsView extends ScrollView
     private Object mCurrentEditTextSpan;
     private ChipValidator mChipsValidator;
 
+    private boolean readOnly;
+
     public ChipsView(Context context) {
         super(context);
         init();
@@ -328,6 +330,14 @@ public class ChipsView extends ScrollView
         mChipsValidator = chipsValidator;
     }
 
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
+
     public EditText getEditText() {
         return mEditText;
     }
@@ -448,6 +458,10 @@ public class ChipsView extends ScrollView
     }
 
     private void onChipInteraction(Chip chip, boolean nameClicked) {
+        if (readOnly) {
+            return;
+        }
+
         unselectChipsExcept(chip);
         if (chip.isSelected()) {
             if (nameClicked) {
