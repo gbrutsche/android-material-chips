@@ -731,7 +731,7 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
                 mTextView.setTypeface(mTypeface);
             }
             if (mPhotoUri != null) {
-                Picasso.with(getContext())
+                Picasso.get()
                         .load(mPhotoUri)
                         .noPlaceholder()
                         .into(mAvatarView, new Callback() {
@@ -741,7 +741,7 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
                             }
 
                             @Override
-                            public void onError() {
+                            public void onError(final Exception e) {
 
                             }
                         });
