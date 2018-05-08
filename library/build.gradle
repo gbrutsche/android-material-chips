@@ -28,12 +28,16 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
+    // FIX: Fixes some other lib using v2.1.0 of this lib and causing support version mismatch.
+    // Remove when updating libs as it might not be needed anymore.
+    implementation "com.android.support:exifinterface:27.1.1"
+
     // JUnit
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'junit:junit:4.12'
     // Testing
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test:rules:1.0.1'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
 }
 
 task sourcesJar(type: Jar) {
