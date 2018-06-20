@@ -1,5 +1,7 @@
-
 buildscript {
+    ext.kotlinVersion = '1.2.50'
+    ext.androidMavenGradlePluginVersion = '2.1'
+
     repositories {
         google()
         mavenCentral()
@@ -7,8 +9,27 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.3'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath "com.github.dcendents:android-maven-gradle-plugin:$rootProject.ext.androidMavenGradlePluginVersion"
     }
+}
+
+ext {
+    minSdkVersion = 21
+    targetSdkVersion = 26
+    compileSdkVersion = 27
+    buildToolsVersion = '27.0.3'
+
+    // Android support specific libs.
+    supportLibraryVersion = '27.1.1'
+
+    // MaterialChips.
+    picassoVersion = '2.71828'
+    roundedImageViewVersion = '2.3.0'
+    materialEditTextVersion = '2.1.4'
+
+    // Test libs.
+    jUnitVersion = '4.12'
+    androidSupportTestVersion = '1.0.2'
 }
 
 allprojects {

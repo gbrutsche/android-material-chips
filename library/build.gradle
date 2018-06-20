@@ -1,14 +1,14 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
     flavorDimensions "dimension"
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 4
         versionName "1.2.0"
         setProperty("archivesBaseName", "android-material-chips-$versionName")
@@ -23,21 +23,21 @@ android {
 }
 
 dependencies {
-    implementation 'com.makeramen:roundedimageview:2.3.0'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    implementation "com.makeramen:roundedimageview:$rootProject.ext.roundedImageViewVersion"
+    implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    implementation "com.rengwuxian.materialedittext:library:$rootProject.ext.materialEditTextVersion"
 
     // FIX: Fixes some other lib using v2.1.0 of this lib and causing support version mismatch.
     // Remove when updating libs as it might not be needed anymore.
-    implementation "com.android.support:exifinterface:27.1.1"
+    implementation "com.android.support:exifinterface:$rootProject.ext.supportLibraryVersion"
 
     // JUnit
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:$rootProject.ext.jUnitVersion"
+    androidTestImplementation "junit:junit:$rootProject.ext.jUnitVersion"
     // Testing
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation "com.android.support.test:runner:$rootProject.ext.androidSupportTestVersion"
+    androidTestImplementation "com.android.support.test:rules:$rootProject.ext.androidSupportTestVersion"
 }
 
 task sourcesJar(type: Jar) {
