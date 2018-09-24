@@ -21,6 +21,7 @@ ext {
 
     // Android support specific libs.
     supportLibraryVersion = '28.0.0'
+    androidXVersion = '1.0.0'
 
     // MaterialChips.
     picassoVersion = '2.71828'
@@ -30,6 +31,7 @@ ext {
     // Test libs.
     jUnitVersion = '4.12'
     androidSupportTestVersion = '1.0.2'
+    androidXSupportTestVersion = '1.1.0-alpha4'
 }
 
 allprojects {

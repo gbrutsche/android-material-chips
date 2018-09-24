@@ -25,19 +25,19 @@ android {
 dependencies {
     implementation "com.makeramen:roundedimageview:$rootProject.ext.roundedImageViewVersion"
     implementation "com.squareup.picasso:picasso:$rootProject.ext.picassoVersion"
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.androidXVersion"
     implementation "com.rengwuxian.materialedittext:library:$rootProject.ext.materialEditTextVersion"
 
     // FIX: Fixes some other lib using v2.1.0 of this lib and causing support version mismatch.
     // Remove when updating libs as it might not be needed anymore.
-    implementation "com.android.support:exifinterface:$rootProject.ext.supportLibraryVersion"
+    implementation "androidx.exifinterface:exifinterface:$rootProject.ext.androidXVersion"
 
     // JUnit
     testImplementation "junit:junit:$rootProject.ext.jUnitVersion"
     androidTestImplementation "junit:junit:$rootProject.ext.jUnitVersion"
     // Testing
-    androidTestImplementation "com.android.support.test:runner:$rootProject.ext.androidSupportTestVersion"
-    androidTestImplementation "com.android.support.test:rules:$rootProject.ext.androidSupportTestVersion"
+    androidTestImplementation "androidx.test:runner:$rootProject.ext.androidXSupportTestVersion"
+    androidTestImplementation "androidx.test:rules:$rootProject.ext.androidXSupportTestVersion"
 }
 
 task sourcesJar(type: Jar) {

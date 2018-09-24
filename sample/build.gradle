@@ -25,8 +25,8 @@ android {
 dependencies {
     implementation project(':library')
 
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportLibraryVersion"
+    implementation "androidx.appcompat:appcompat:$rootProject.ext.androidXVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.androidXVersion"
     implementation "com.rengwuxian.materialedittext:library:$rootProject.ext.materialEditTextVersion"
 
     testImplementation "junit:junit:$rootProject.ext.jUnitVersion"
