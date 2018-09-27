@@ -26,16 +26,13 @@ import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.style.LeadingMarginSpan;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -62,6 +59,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 public class ChipsView extends ScrollView implements ChipsEditText.InputConnectionWrapperInterface {
 
@@ -110,13 +112,13 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
     private ChipsEditText             mEditText;
     private ChipsVerticalLinearLayout mRootChipsLayout;
     private EditTextListener          mEditTextListener;
-    private List<Chip> mChipList = new ArrayList<>();
-    private Object        mCurrentEditTextSpan;
-    private ChipValidator mChipsValidator;
-    private Typeface      mTypeface;
+    private List<Chip>                mChipList = new ArrayList<>();
+    private Object                    mCurrentEditTextSpan;
+    private ChipValidator             mChipsValidator;
+    private Typeface                  mTypeface;
 
     // initials
-    private boolean mUseInitials = false;
+    private boolean  mUseInitials = false;
     private int      mInitialsTextSize;
     private Typeface mInitialsTypeface;
     @ColorInt
@@ -405,10 +407,15 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
         if (mCurrentEditTextSpan != null) {
             spannable.removeSpan(mCurrentEditTextSpan);
         }
-        mCurrentEditTextSpan = new android.text.style.LeadingMarginSpan.LeadingMarginSpan2.Standard(margin, 0);
+        mCurrentEditTextSpan = new LeadingMarginSpan.LeadingMarginSpan2.Standard(margin, 0);
         spannable.setSpan(mCurrentEditTextSpan, 0, 0, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
-        mEditText.setText(spannable);
+        try {
+            mEditText.setText(spannable);
+        } catch (final NullPointerException e) {
+            // TODO: Seems to happen on Android 9 (API 28). Not sure why.
+            Log.e(TAG, "addLeadingMarginSpan:", e);
+        }
     }
 
     private void addLeadingMarginSpan() {
@@ -418,7 +425,12 @@ public class ChipsView extends ScrollView implements ChipsEditText.InputConnecti
         }
         spannable.setSpan(mCurrentEditTextSpan, 0, 0, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
-        mEditText.setText(spannable);
+        try {
+            mEditText.setText(spannable);
+        } catch (final NullPointerException e) {
+            // TODO: Seems to happen on Android 9 (API 28). Not sure why.
+            Log.e(TAG, "addLeadingMarginSpan:", e);
+        }
     }
 
     /**

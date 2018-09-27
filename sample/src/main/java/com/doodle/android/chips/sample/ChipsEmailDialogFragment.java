@@ -18,9 +18,6 @@ package com.doodle.android.chips.sample;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +26,10 @@ import android.widget.TextView;
 import com.doodle.android.chips.R;
 import com.doodle.android.chips.util.Common;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 public class ChipsEmailDialogFragment extends DialogFragment {
 
