@@ -30,7 +30,7 @@ dependencies {
 
     // FIX: Fixes some other lib using v2.1.0 of this lib and causing support version mismatch.
     // Remove when updating libs as it might not be needed anymore.
-    implementation "androidx.exifinterface:exifinterface:$rootProject.ext.androidXVersion"
+    implementation "androidx.exifinterface:exifinterface:$rootProject.ext.androidXExifInterfaceVersion"
 
     // JUnit
     testImplementation "junit:junit:$rootProject.ext.jUnitVersion"
