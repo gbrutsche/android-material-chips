@@ -26,13 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChipsVerticalLinearLayout extends LinearLayout {
+    private final List<LinearLayout> mLineLayouts = new ArrayList<>();
 
-    private List<LinearLayout> mLineLayouts = new ArrayList<>();
+    private final float mDensity;
+    private final int   mRowSpacing;
 
-    private float mDensity;
-    private int mRowSpacing;
-
-    public ChipsVerticalLinearLayout(Context context, int rowSpacing) {
+    public ChipsVerticalLinearLayout(final Context context, final int rowSpacing) {
         super(context);
 
         mDensity = getResources().getDisplayMetrics().density;
@@ -43,23 +42,25 @@ public class ChipsVerticalLinearLayout extends LinearLayout {
 
     private void init() {
         setOrientation(VERTICAL);
+        setFocusableInTouchMode(false);
+        setClickable(false);
     }
 
-    public TextLineParams onChipsChanged(List<ChipsView.Chip> chips) {
+    public TextLineParams onChipsChanged(final List<ChipsView.Chip> chips) {
         clearChipsViews();
 
-        int width = getWidth();
+        final int width = getWidth();
         if (width == 0) {
             return null;
         }
-        int widthSum = 0;
+        int widthSum   = 0;
         int chipsCount = 0;
         int rowCounter = 0;
 
         LinearLayout ll = createHorizontalView();
 
-        for (ChipsView.Chip chip : chips) {
-            View view = chip.getView();
+        for (final ChipsView.Chip chip : chips) {
+            final View view = chip.getView();
             view.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
 
             // if width exceed current width. create a new LinearLayout
@@ -88,7 +89,7 @@ public class ChipsVerticalLinearLayout extends LinearLayout {
     }
 
     private LinearLayout createHorizontalView() {
-        LinearLayout ll = new LinearLayout(getContext());
+        final LinearLayout ll = new LinearLayout(getContext());
         ll.setPadding(0, 0, 0, mRowSpacing);
         ll.setOrientation(HORIZONTAL);
         ll.setFocusableInTouchMode(false);
@@ -98,7 +99,7 @@ public class ChipsVerticalLinearLayout extends LinearLayout {
     }
 
     private void clearChipsViews() {
-        for (LinearLayout linearLayout : mLineLayouts) {
+        for (final LinearLayout linearLayout : mLineLayouts) {
             linearLayout.removeAllViews();
         }
         mLineLayouts.clear();
@@ -110,7 +111,7 @@ public class ChipsVerticalLinearLayout extends LinearLayout {
         public int lineMargin;
         public int chipsCount = 0;
 
-        public TextLineParams(int row, int lineMargin, int chipsCount) {
+        public TextLineParams(final int row, final int lineMargin, final int chipsCount) {
             this.row = row;
             this.lineMargin = lineMargin;
             this.chipsCount = chipsCount;
